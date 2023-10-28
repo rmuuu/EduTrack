@@ -37,91 +37,69 @@ def manage_users():
 
 def add_user():
     role = input("Enter the user's role (teacher/student): ")
-
     if role in ["teacher", "student"]:
-        # Establish a connection to the database, initialization of user
-        with database.Database() as db:
-            if role == "student":
-                new_user = data_initialization.add_student()
-                
-            else:
-                new_user = data_initialization.add_instrcutor()
-            
-            query, values = new_user
-            
-            user_id = values[0]
-            email = values[5]
-            password = values[0]
-                
-            success = db.execute_query(query,values)
-
-            # Add the user information to the 'users' table
-            query = "INSERT INTO users (user_id, email, Password, Role) VALUES (%s, %s, %s, %s)"
-            values = (user_id, email, password, role)
-            success = db.execute_query(query, values)
-
-            if success:
-                print(f"User {user_id} with role {role} added successfully.")
-            else:
-                print(f"Failed to add the user with role {role}.")
+        data_initialization.input_data(role)
     else:
         print("Invalid role. Please enter 'teacher' or 'student'.")
 
 def delete_user():
     user_id = input("Enter the ID of the user to delete:")
+    data_initialization.delete_data(user_id)
+
+def modify_user():
+    user_id = input("Enter the ID of the user to modify: ")
     
     # Establish a connection to the database
     with database.Database() as db:
         # Determine the role of the user
-        role_query = "SELECT Role FROM users WHERE user_id = %s"
-        role_result = db.fetch_data(role_query, (user_id,))
-        
+        role_result = data_initialization.search_user_id(user_id)
+
         if not role_result:
-            print(f"User {user_id} not found.")
-        else:
-            role = role_result[0]
-            user_role = role[0]
-            
-            # Delete the user from the respective table based on their role
-            if user_role == "student":
-                # Delete the student
-                db.execute_query("DELETE FROM Students WHERE sr_code = %s", (user_id,))
-            elif user_role == "teacher":
-                # Delete the instructor
-                db.execute_query("DELETE FROM Instructor WHERE emp_code = %s", (user_id,))
-        
-            # Delete the user from the 'users' table
-            db.execute_query("DELETE FROM users WHERE user_id = %s", (user_id,))
-            print(f"User {user_id} deleted successfully.")
-
-def modify_user():
-    user_id = input("Enter the ID of the user to modify: ")
-
-    # Establish a connection to the database
-    with database.Database() as db:
-        # Determine the current role of the user
-        current_role_query = "SELECT Role FROM users WHERE user_id = %s"
-        current_role_result = db.fetch_data(current_role_query, (user_id))
-
-        if not current_role_result:
             print(f"User {user_id} not found.")
             return
 
-        current_role = current_role_result[0][0]
+        role = role_result[0][0]
 
-        if current_role == "student":
-            # Update the student's role in the 'Students' table
-            update_role_query = "UPDATE Students SET role = %s WHERE sr_code = %s"
-            db.execute_query(update_role_query, ("teacher", user_id))
-        elif current_role == "teacher":
-            # Update the instructor's role in the 'Instructor' table
-            update_role_query = "UPDATE Instructor SET role = %s WHERE emp_code = %s"
-            db.execute_query(update_role_query, ("student", user_id))
+        if role == "student":
+            # Update student information
+            updated_info = data_initialization.add_student()
+            query = "UPDATE Students SET last_name = %s, given_name = %s, middle_name = %s, birth_date = %s, email = %s, program = %s, block = %s, address = %s, contact_number = %s, eContact_number = %s, eContact_name = %s WHERE sr_code = %s"
+            update_values = (*updated_info, user_id)
+            db.execute_query(query, update_values)
+        elif role == "teacher":
+            # Update instructor information
+            updated_info = data_initialization.add_instrcutor()
+            query = "UPDATE Instructor SET last_name = %s, given_name = %s, middle_name = %s, birth_date = %s, email = %s, hdl_course = %s, hdl_block = %s, address = %s, contact_number = %s, eContact_number = %s, eContact_name = %s WHERE emp_code = %s"
+            update_values = (*updated_info, user_id)
+            db.execute_query(query, update_values)
         
-        # Update the user's role in the 'users' table
-        update_role_query = "UPDATE users SET Role = %s WHERE user_id = %s"
-        db.execute_query(update_role_query, ("teacher" if current_role == "student" else "student", user_id))
-        print(f"User {user_id} role updated successfully.")
+        print(f"User {user_id} information updated successfully.")
+        
+        # Update the user's role in the 'users' table (if necessary)
+        if role == "student":
+            # Update student password
+            new_password = input("Enter the new password for the student: ")
+            update_password_query = "UPDATE Students SET Password = %s WHERE sr_code = %s"
+            db.execute_query(update_password_query, (new_password, user_id))
+        elif role == "teacher":
+            # Update instructor password
+            new_password = input("Enter the new password for the instructor: ")
+            update_password_query = "UPDATE Instructor SET Password = %s WHERE emp_code = %s"
+            db.execute_query(update_password_query, (new_password, user_id))
+        
+        # Print a confirmation message
+        print(f"Password for user {user_id} updated successfully.")
+
+        # Print the updated information
+        if role == "student":
+            updated_student_info = data_initialization.search_student(user_id)
+            print("Updated Student Information:")
+            data_initialization.display_student_info(updated_student_info)
+        elif role == "teacher":
+            updated_instructor_info = data_initialization.search_instructor(user_id)
+            print("Updated Instructor Information:")
+            data_initialization.display_instructor_info(updated_instructor_info)
+
 
 def list_users():
     user_id = input("Enter the ID of the user to list: ")
@@ -130,7 +108,7 @@ def list_users():
     with database.Database() as db:
         # Determine the role of the user
         role_query = "SELECT Role FROM users WHERE user_id = %s"
-        role_result = db.fetch_data(role_query, (user_id))
+        role_result = db.fetch_all(role_query, (user_id))
 
         if not role_result:
             print(f"User {user_id} not found.")
@@ -145,10 +123,10 @@ def list_users():
             # Fetch and display the list of instructors
             user_list_query = "SELECT emp_code FROM Instructor"
 
-        user_list = db.fetch_data(user_list_query)
+        user_list = db.fetch_all(user_list_query)
 
         if user_list:
-            print(f"List of {role.capitalize()}s:")
+            print(f"List of {role.capitalize()}/s:")
             for user_id in user_list:
                 print(f"User ID: {user_id[0]}")
         else:
