@@ -47,90 +47,28 @@ def delete_user():
     data_initialization.delete_data(user_id)
 
 def modify_user():
-    user_id = input("Enter the ID of the user to modify: ")
-    
-    # Establish a connection to the database
-    with database.Database() as db:
-        # Determine the role of the user
-        role_result = data_initialization.search_user_id(user_id)
-
-        if not role_result:
-            print(f"User {user_id} not found.")
-            return
-
-        role = role_result[0][0]
-
-        if role == "student":
-            # Update student information
-            updated_info = data_initialization.add_student()
-            query = "UPDATE Students SET last_name = %s, given_name = %s, middle_name = %s, birth_date = %s, email = %s, program = %s, block = %s, address = %s, contact_number = %s, eContact_number = %s, eContact_name = %s WHERE sr_code = %s"
-            update_values = (*updated_info, user_id)
-            db.execute_query(query, update_values)
-        elif role == "teacher":
-            # Update instructor information
-            updated_info = data_initialization.add_instrcutor()
-            query = "UPDATE Instructor SET last_name = %s, given_name = %s, middle_name = %s, birth_date = %s, email = %s, hdl_course = %s, hdl_block = %s, address = %s, contact_number = %s, eContact_number = %s, eContact_name = %s WHERE emp_code = %s"
-            update_values = (*updated_info, user_id)
-            db.execute_query(query, update_values)
+    while True:
+        choice = user_interface.admin_manage_users_modify_menu_prompt()
         
-        print(f"User {user_id} information updated successfully.")
-        
-        # Update the user's role in the 'users' table (if necessary)
-        if role == "student":
-            # Update student password
-            new_password = input("Enter the new password for the student: ")
-            update_password_query = "UPDATE Students SET Password = %s WHERE sr_code = %s"
-            db.execute_query(update_password_query, (new_password, user_id))
-        elif role == "teacher":
-            # Update instructor password
-            new_password = input("Enter the new password for the instructor: ")
-            update_password_query = "UPDATE Instructor SET Password = %s WHERE emp_code = %s"
-            db.execute_query(update_password_query, (new_password, user_id))
-        
-        # Print a confirmation message
-        print(f"Password for user {user_id} updated successfully.")
-
-        # Print the updated information
-        if role == "student":
-            updated_student_info = data_initialization.search_student(user_id)
-            print("Updated Student Information:")
-            data_initialization.display_student_info(updated_student_info)
-        elif role == "teacher":
-            updated_instructor_info = data_initialization.search_instructor(user_id)
-            print("Updated Instructor Information:")
-            data_initialization.display_instructor_info(updated_instructor_info)
-
+        if choice == 1:
+            data_initialization.update_user_id()
+        elif choice == 2:
+            data_initialization.update_password()
+        elif choice == 3:
+            data_initialization.update_info()
+        elif choice == 4:
+            break
 
 def list_users():
-    user_id = input("Enter the ID of the user to list: ")
+    while True:
+        choice = user_interface.admin_manage_users_list_menu_prompt()
 
-    # Establish a connection to the database
-    with database.Database() as db:
-        # Determine the role of the user
-        role_query = "SELECT Role FROM users WHERE user_id = %s"
-        role_result = db.fetch_all(role_query, (user_id))
-
-        if not role_result:
-            print(f"User {user_id} not found.")
-            return
-
-        role = role_result[0][0]
-
-        if role == "student":
-            # Fetch and display the list of students
-            user_list_query = "SELECT sr_code FROM Students"
-        elif role == "teacher":
-            # Fetch and display the list of instructors
-            user_list_query = "SELECT emp_code FROM Instructor"
-
-        user_list = db.fetch_all(user_list_query)
-
-        if user_list:
-            print(f"List of {role.capitalize()}/s:")
-            for user_id in user_list:
-                print(f"User ID: {user_id[0]}")
-        else:
-            print(f"No {role}s found.")
+        if choice == 1:
+            data_initialization.list_students()
+        elif choice == 2:
+            data_initialization.list_instructors()
+        elif choice == 3:
+            break
 
 def manage_classes():
     while True:
