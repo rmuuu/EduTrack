@@ -12,15 +12,15 @@ class Person:
 
     @staticmethod
     def collect_person_input():
-        last_name = input("Enter last name: ")
-        given_name = input("Enter given name: ")
-        middle_name = input("Enter middle name: ")
-        birth_date = input("Enter birth date (YYYY-MM-DD): ")
-        email = input("Enter email address: ")
-        address = input("Enter address: ")
-        contact_number = input("Enter contact number: ")
-        eContact_number = input("Enter emergency contact number: ")
-        eContact_name = input("Enter emergency contact name: ")
+        last_name = input("Enter last name   : ")
+        given_name = input("Enter given name  : ")
+        middle_name = input("Enter middle name : ")
+        birth_date = input("Enter birth date (YYYY-MM-DD) : ")
+        email = input("Enter email address : ")
+        address = input("Enter address       : ")
+        contact_number = input("Enter contact number           : ")
+        eContact_number = input("Enter emergency contact number : ")
+        eContact_name = input("Enter emergency contact name   : ")
 
         return last_name, given_name, middle_name, birth_date, email, address, contact_number, eContact_number, eContact_name
 
@@ -33,9 +33,9 @@ class Student(Person):
 
     @staticmethod
     def collect_student_input():
-        sr_code = input("Enter SR Code: ")
-        program = input("Enter Program: ")
-        block = input("Enter Block: ")
+        sr_code = input("Enter SR Code     : ")
+        program = input("Enter Program       : ")
+        block = input("Enter Block         : ")
         last_name, given_name, middle_name, birth_date, email, address, contact_number, eContact_number, eContact_name = Person.collect_person_input()
 
         return sr_code, last_name, given_name, middle_name, birth_date, email, address, contact_number, eContact_number, eContact_name, program, block
@@ -49,9 +49,9 @@ class Instructor(Person):
 
     @staticmethod
     def collect_instructor_input():
-        emp_code = input("Enter Employee Code: ")
-        hdl_course = input("Enter Handled Course: ")
-        hdl_block = input("Enter Handled Block: ")
+        emp_code =   input("Enter Employee Code  : ")
+        hdl_course = input("Enter Handled Course : ")
+        hdl_block =  input("Enter Handled Block  : ")
         last_name, given_name, middle_name, birth_date, email, address, contact_number, eContact_number, eContact_name = Person.collect_person_input()
 
         return emp_code, last_name, given_name, middle_name, birth_date, email, address, contact_number, eContact_number, eContact_name, hdl_course, hdl_block
@@ -71,8 +71,8 @@ class Class:
 
     @staticmethod
     def collect_class_input():
-        class_name = input("Enter class name: ")
-        teacher_id = input("Enter teacher ID: ")
+        class_name = input("Enter class name : ")
+        teacher_id = input("Enter teacher ID : ")
 
         return class_name, teacher_id
 
