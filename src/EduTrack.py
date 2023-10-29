@@ -6,25 +6,25 @@ def main():
 
     while user is None:
         print("Welcome to the EduTrack!")
-        username = input("Username: ")
+        email = input("Email: ")
         password = input("Password: ")
 
     # Admin Privilege
-        if username == "admin":
-            if password == "password":
+        if email == "":
+            if password == "":
                 admin_functions.admin_menu(user)
 
-        user = authentication.authenticate_user(username, password)
+        user = authentication.authenticate_user(email, password)
 
         if user is None:
             print("Invalid credentials. Please try again.\n")
     
-    if user.role == authentication.TEACHER:
+    if user.role == "teacher":
         print("this executed, teahcer")
         teacher_functions.teacher_menu(user)
-    elif user.role == authentication.STUDENT:
+    elif user.role == "student":
         print("this executed, student")
         student_functions.student_menu(user)
 
 if __name__ == "__main__":
-    main()
+    main()  
