@@ -1,15 +1,9 @@
 import mysql.connector as mysql
 import logging
 
-# Custom exception for database errors
-class DatabaseError(Exception):
-    pass
-
-# Custom Database class with additional features
 class Database:
     def __init__(self, db_config=None):
         if db_config is None:
-            # Use default configuration if not provided
             db_config = {
                 "host": "localhost",
                 "user": "root",
@@ -20,40 +14,31 @@ class Database:
         self.connection = None
         self.cursor = None
 
-        # Set up logging
-        logging.basicConfig(filename='database.log', level=logging.INFO)
-
-        # Automatically create the database and tables if they don't exist
-        self.setup_database()
-
     def connect(self):
-        try:
-            self.connection = mysql.connect(**self.db_config, buffered=True)
-            self.cursor = self.connection.cursor()
-        except mysql.Error as e:
-            # Log the error and raise a custom exception
-            logging.error(f"Database connection error: {e}")
-            raise DatabaseError("Unable to connect to the database.")
+        self.connection = mysql.connect(**self.db_config, buffered=True)
+        self.cursor = self.connection.cursor()
 
     def disconnect(self):
         if self.connection:
             self.connection.close()
 
     def execute_query(self, query, params=None):
+        self.connect()
         try:
             if params:
                 self.cursor.execute(query, params)
             else:
                 self.cursor.execute(query)
             self.connection.commit()
-            return True
         except mysql.Error as e:
-            # Log the error and raise a custom exception
             logging.error(f"Database query error: {e}")
             self.connection.rollback()
-            raise DatabaseError("Error executing the database query.")
+        finally:
+            self.disconnect()
+            return
 
-    def fetch_data(self, query, params=None):
+    def fetch_all(self, query, params=None):
+        self.connect()
         try:
             if params:
                 self.cursor.execute(query, params)
@@ -61,10 +46,23 @@ class Database:
                 self.cursor.execute(query)
             return self.cursor.fetchall()
         except mysql.Error as e:
-            # Log the error and raise a custom exception
             logging.error(f"Database query error: {e}")
-            raise DatabaseError("Error fetching data from the database.")
+        finally:
+            self.disconnect()
 
+    def fetch_one(self, query, params=None):
+        self.connect()
+        try:
+            if params:
+                self.cursor.execute(query, params)
+            else:
+                self.cursor.execute(query)
+            return self.cursor.fetchone()
+        except mysql.Error as e:
+            logging.error(f"Database query error: {e}")
+        finally:
+            self.disconnect()
+            
     def setup_database(self):
         # Check if the database and tables exist, and create them if not
         try:
