@@ -21,6 +21,19 @@ def show_admin_manage_users_menu():
     print("3. Modify User ")
     print("4. List Users ")
     print("5. Exit")
+    
+def show_admin_manage_users_modify_menu():
+    print("\nAdmin Manage Users Modify Menu:")
+    print("1. Change ID")
+    print("2. Change Password")
+    print("3. Update Info")
+    print("4. Exit")
+
+def show_admin_manage_users_list_menu_():
+    print("\nAdmin Manage Users List Menu:")
+    print("1. List Students")
+    print("2. List Instructors")
+    print("3. Exit")
 
 def show_teacher_menu():
     print("\nTeacher Menu:")
@@ -53,6 +66,14 @@ def admin_menu_prompt():
 
 def admin_manage_users_menu_prompt():
     show_admin_manage_users_menu()
+    return get_user_choice()
+
+def admin_manage_users_modify_menu_prompt():
+    show_admin_manage_users_modify_menu()
+    return get_user_choice()
+
+def admin_manage_users_list_menu_prompt():
+    show_admin_manage_users_list_menu_()
     return get_user_choice()
 
 def teacher_menu_prompt():
