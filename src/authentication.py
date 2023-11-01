@@ -8,7 +8,6 @@ def authenticate_user(email, password):
         # Execute the SQL query to check if the user with the provided credentials exists
         query = "SELECT * FROM Users WHERE email = %s AND password = %s"
         user_record = db.fetch_one(query, query_vals)
-        print(user_record)
         if user_record:
             # Extract the user's email and role from the query result
             email, role = user_record[1], user_record[3]
