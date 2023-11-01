@@ -3,7 +3,7 @@ import database
 import models
 import data_initialization
 
-def admin_menu(user):
+def admin_menu():
     while True:
         choice = user_interface.admin_menu_prompt()
         
@@ -36,11 +36,16 @@ def manage_users():
             break
 
 def add_user():
-    role = input("Enter the user's role (teacher/student): ")
-    if role in ["teacher", "student"]:
+    role = input("Enter the user's role (I-instructor/S-student): ")
+    if role.lower() == "s":
+        role = "student"
+    elif role.lower() == "i": 
+        role = "instructor"
+        
+    if role in ["instructor", "student"]:
         data_initialization.input_data(role)
     else:
-        print("Invalid role. Please enter 'teacher' or 'student'.")
+        print("Invalid role. Please enter I-instructor / S-student.")
 
 def delete_user():
     user_id = input("Enter the ID of the user to delete:")
@@ -59,16 +64,18 @@ def modify_user():
         elif choice == 4:
             break
 
-def list_users():
-    while True:
-        choice = user_interface.admin_manage_users_list_menu_prompt()
-
-        if choice == 1:
-            data_initialization.list_students()
-        elif choice == 2:
-            data_initialization.list_instructors()
-        elif choice == 3:
-            break
+def list_users():    
+    choice = user_interface.admin_manage_users_display_list_menu_prompt()
+    if choice == 1:
+        display_format = "table"
+    if choice == 2:
+        display_format = "key-value"
+        
+    choice = user_interface.admin_manage_users_list_menu_prompt()
+    if choice == 1:
+        data_initialization.list_students(display_format)
+    elif choice == 2:
+        data_initialization.list_instructors(display_format)
 
 def manage_classes():
     while True:
@@ -87,11 +94,11 @@ def manage_classes():
 
 def create_class():
     class_name = input("Enter the name of the new class: ")
-    teacher_name = input("Enter the name of the teacher for this class: ")
+    instructor_name = input("Enter the name of the instructor for this class: ")
     
     # Create a new class in the database using the database module
-    if database.add_class(class_name, teacher_name):
-        print(f"Class {class_name} with teacher {teacher_name} created successfully.")
+    if database.add_class(class_name, instructor_name):
+        print(f"Class {class_name} with instructor {instructor_name} created successfully.")
     else:
         print(f"Class {class_name} already exists.")
 
@@ -100,11 +107,11 @@ def edit_class():
     
     # Check if the class exists
     if database.class_exists(class_name):
-        new_teacher_name = input("Enter the name of the new teacher for this class: ")
+        new_instructor_name = input("Enter the name of the new instructor for this class: ")
         
-        # Modify the class's teacher in the database using the database module
-        database.modify_class_teacher(class_name, new_teacher_name)
-        print(f"Teacher of class {class_name} updated to {new_teacher_name}.")
+        # Modify the class's instructor in the database using the database module
+        database.modify_class_instructor(class_name, new_instructor_name)
+        print(f"instructor of class {class_name} updated to {new_instructor_name}.")
     else:
         print(f"Class {class_name} not found.")
 
@@ -122,7 +129,7 @@ def list_classes():
     classes = database.get_all_classes()
     print("List of classes:")
     for class_info in classes:
-        print(f"Class Name: {class_info.class_name}, Teacher: {class_info.teacher_name}")
+        print(f"Class Name: {class_info.class_name}, instructor: {class_info.instructor_name}")
 
 def manage_attendance():
     while True:
