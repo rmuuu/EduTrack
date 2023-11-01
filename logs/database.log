@@ -5,3 +5,6 @@ ERROR:root:Database query error: 1054 (42S22): Unknown column 'user_id' in 'fiel
 ERROR:root:Database query error: 2055: Lost connection to MySQL server at 'localhost:3306', system error: 10038 An operation was attempted on something that is not a socket
 ERROR:root:Database query error: 1054 (42S22): Unknown column 'Role' in 'field list'
 ERROR:root:Database query error: 1054 (42S22): Unknown column 'Role' in 'field list'
+ERROR:root:Database connection error: 1049 (42000): Unknown database 'edutrack'
+ERROR:root:Database connection error: 1049 (42000): Unknown database 'edutrack'
+ERROR:root:Database connection error: 1049 (42000): Unknown database 'edutrack'
