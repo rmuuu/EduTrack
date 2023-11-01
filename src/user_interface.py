@@ -21,6 +21,18 @@ def show_admin_manage_users_menu():
     print("3. Modify User ")
     print("4. List Users ")
     print("5. Exit")
+
+def show_admin_manage_users_display_list_menu():
+    print("\nAdmin Manage Users Display List Menu:")
+    print("1. Table form ")
+    print("2. Key-value form ")
+    print("3. Exit")
+    
+def show_admin_manage_users_list_menu_():
+    print("\nAdmin Manage Users List Menu:")
+    print("1. List Students")
+    print("2. List Instructors")
+    print("3. Exit")
     
 def show_admin_manage_users_modify_menu():
     print("\nAdmin Manage Users Modify Menu:")
@@ -28,12 +40,39 @@ def show_admin_manage_users_modify_menu():
     print("2. Change Password")
     print("3. Update Info")
     print("4. Exit")
-
-def show_admin_manage_users_list_menu_():
-    print("\nAdmin Manage Users List Menu:")
-    print("1. List Students")
-    print("2. List Instructors")
-    print("3. Exit")
+    
+def show_admin_manage_users_modify_update_info_menu(role):
+    if role == "student":
+        print("\nAdmin Manage Users Modify Update Info Menu:")
+        print(" Update Student's Information:")
+        print("  1. Update Last Name")
+        print("  2. Update Given Name")
+        print("  3. Update Middle Name")
+        print("  4. Update Birth Date")
+        print("  5. Update Email")
+        print("  6. Update Program")
+        print("  7. Update Block")
+        print("  8. Update Address")
+        print("  9. Update Contact Number")
+        print(" 10. Update Emergency Contact Name")
+        print(" 11. Update Emergency Contact Number")
+        print("  0. Exit")
+        
+    elif role == "instructor":
+        print("\nAdmin Manage Users Modify Update Info Menu:")
+        print(" Update Instructor's Information:")
+        print("  1. Update Last Name")
+        print("  2. Update Given Name")
+        print("  3. Update Middle Name")
+        print("  4. Update Birth Date")
+        print("  5. Update Email")
+        print("  6. Update Hdl Course")
+        print("  7. Update Hdl Block")
+        print("  8. Update Address")
+        print("  9. Update Contact Number")
+        print(" 10. Update Emergency Contact Name")
+        print(" 11. Update Emergency Contact Number")
+        print("  0. Exit")
 
 def show_teacher_menu():
     print("\nTeacher Menu:")
@@ -68,12 +107,20 @@ def admin_manage_users_menu_prompt():
     show_admin_manage_users_menu()
     return get_user_choice()
 
-def admin_manage_users_modify_menu_prompt():
-    show_admin_manage_users_modify_menu()
+def admin_manage_users_display_list_menu_prompt():
+    show_admin_manage_users_display_list_menu()
     return get_user_choice()
 
 def admin_manage_users_list_menu_prompt():
     show_admin_manage_users_list_menu_()
+    return get_user_choice()
+
+def admin_manage_users_modify_menu_prompt():
+    show_admin_manage_users_modify_menu()
+    return get_user_choice()
+
+def admin_manage_users_modify_update_info_menu_prompt(role):
+    show_admin_manage_users_modify_update_info_menu(role)
     return get_user_choice()
 
 def teacher_menu_prompt():
