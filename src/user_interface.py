@@ -3,44 +3,63 @@ def show_main_menu():
     print("1. View Schedule")
     print("2. View Grades")
     print("3. View Attendance")
-    print("4. Exit")
+    print("0. Exit")
 
 def show_admin_menu():
     print("\nAdmin Menu:")
-    print("1. User Management")
-    print("2. Class Management")
+    print("1. Register Student")
+    print("2. Employ Instructor")
     print("3. Attendance Monitoring")
     print("4. Grade Management")
-    print("5. Schedule Management")
-    print("6. Exit")
+    print("0. Exit")
 
-def show_admin_manage_users_menu():
-    print("\nAdmin Manage Users Menu:")
-    print("1. Add User ")
-    print("2. Delete User ")
-    print("3. Modify User ")
-    print("4. List Users ")
-    print("5. Exit")
+def show_manage_attendance_menu():
+    print("\nAttendance Menu:")
+    print("1. View attendance")
+    print("2. Mark attendance")
+    print("0. Exit")
+
+def show_manage_grades_menu():
+    print("\nGrades Menu:")
+    print("1. View grades")
+    print("2. Input grades")
+    print("0. Exit")
+
+def show_admin_manage_students_menu():
+    print("\nAdmin Manage Students Menu:")
+    print("1. Add Students ")
+    print("2. Delete Students ")
+    print("3. Modify Students ")
+    print("4. List Students ")
+    print("0. Exit")
+
+def show_admin_manage_instructor_menu():
+    print("\nAdmin Manage Instructor Menu:")
+    print("1. Add Instructor ")
+    print("2. Delete Instructor ")
+    print("3. Modify Instructor ")
+    print("4. List Instructor ")
+    print("0. Exit")
 
 def show_admin_manage_users_display_list_menu():
     print("\nAdmin Manage Users Display List Menu:")
     print("1. Table form ")
     print("2. Key-value form ")
-    print("3. Exit")
-    
+    print("0. Exit")
+
 def show_admin_manage_users_list_menu_():
     print("\nAdmin Manage Users List Menu:")
     print("1. List Students")
     print("2. List Instructors")
-    print("3. Exit")
-    
+    print("0. Exit")
+
 def show_admin_manage_users_modify_menu():
     print("\nAdmin Manage Users Modify Menu:")
     print("1. Change ID")
     print("2. Change Password")
     print("3. Update Info")
-    print("4. Exit")
-    
+    print("0. Exit")
+
 def show_admin_manage_users_modify_update_info_menu(role):
     if role == "student":
         print("\nAdmin Manage Users Modify Update Info Menu:")
@@ -51,13 +70,13 @@ def show_admin_manage_users_modify_update_info_menu(role):
         print("  4. Update Birth Date")
         print("  5. Update Email")
         print("  6. Update Program")
-        print("  7. Update Block")
+        print("  7. Update Year Level")
         print("  8. Update Address")
         print("  9. Update Contact Number")
         print(" 10. Update Emergency Contact Name")
         print(" 11. Update Emergency Contact Number")
         print("  0. Exit")
-        
+
     elif role == "instructor":
         print("\nAdmin Manage Users Modify Update Info Menu:")
         print(" Update Instructor's Information:")
@@ -66,12 +85,11 @@ def show_admin_manage_users_modify_update_info_menu(role):
         print("  3. Update Middle Name")
         print("  4. Update Birth Date")
         print("  5. Update Email")
-        print("  6. Update Hdl Course")
-        print("  7. Update Hdl Block")
-        print("  8. Update Address")
-        print("  9. Update Contact Number")
-        print(" 10. Update Emergency Contact Name")
-        print(" 11. Update Emergency Contact Number")
+        print("  6. Update Teaching")
+        print("  7. Update Address")
+        print("  8. Update Contact Number")
+        print("  9. Update Emergency Contact Name")
+        print(" 10. Update Emergency Contact Number")
         print("  0. Exit")
 
 def show_teacher_menu():
@@ -85,8 +103,8 @@ def show_student_menu():
     print("\nStudent Menu:")
     print("1. View Grades")
     print("2. View Attendance")
-    print("3. View Class Schedule")
-    print("4. Exit")
+    print("3. View Personal Info")
+    print("0. Exit")
 
 def get_user_choice():
     try:
@@ -103,8 +121,20 @@ def admin_menu_prompt():
     show_admin_menu()
     return get_user_choice()
 
-def admin_manage_users_menu_prompt():
-    show_admin_manage_users_menu()
+def manage_attendance_menu_prompt():
+    show_manage_attendance_menu()
+    return get_user_choice()
+
+def manage_grades_menu_prompt():
+    show_manage_grades_menu()
+    return get_user_choice()
+
+def admin_manage_users_students_prompt():
+    show_admin_manage_students_menu()
+    return get_user_choice()
+
+def admin_manage_users_instructor_prompt():
+    show_admin_manage_instructor_menu()
     return get_user_choice()
 
 def admin_manage_users_display_list_menu_prompt():

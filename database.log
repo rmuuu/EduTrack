@@ -18,3 +18,46 @@ ERROR:root:Database connection error: 1049 (42000): Unknown database 'edutrack'
 ERROR:root:Database query error: 1062 (23000): Duplicate entry 'SR12343273' for key 'PRIMARY'
 ERROR:root:Database query error: 1062 (23000): Duplicate entry 'SR12343279' for key 'PRIMARY'
 ERROR:root:Database connection error: 2003: Can't connect to MySQL server on 'localhost:3306' (10061 No connection could be made because the target machine actively refused it)
+ERROR:root:Database setup error: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 5
+ERROR:root:Database setup error: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 5
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'block' in 'field list'
+ERROR:root:Database query error: 1005 (HY000): Can't create table `edutrack`.`grades` (errno: 150 "Foreign key constraint is incorrectly formed")
+ERROR:root:Database query error: 1005 (HY000): Can't create table `edutrack`.`grades` (errno: 150 "Foreign key constraint is incorrectly formed")
+ERROR:root:Database query error: 1005 (HY000): Can't create table `edutrack`.`grades` (errno: 150 "Foreign key constraint is incorrectly formed")
+ERROR:root:Database query error: 1062 (23000): Duplicate entry '21-090807' for key 'PRIMARY'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'user_id' in 'where clause'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'emp_code' in 'where clause'
+ERROR:root:Database query error: 1062 (23000): Duplicate entry '' for key 'PRIMARY'
+ERROR:root:Database query error: 1146 (42S02): Table 'edutrack.classes' doesn't exist
+ERROR:root:Database query error: 1146 (42S02): Table 'edutrack.classes' doesn't exist
+ERROR:root:Database query error: 1146 (42S02): Table 'edutrack.classes' doesn't exist
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'class_name' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`edutrack`.`courses`, CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`sr_code`) REFERENCES `students` (`sr_code`))
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: Not all parameters were used in the SQL statement
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'course_code' in 'field list'
+ERROR:root:Database query error: Not all parameters were used in the SQL statement
+ERROR:root:Database query error: Failed processing format-parameters; Python 'tuple' cannot be converted to a MySQL type
+ERROR:root:Database query error: Not all parameters were used in the SQL statement
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'status' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'username' in 'field list'
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'student_username' in 'field list'
+ERROR:root:Database query error: 1146 (42S02): Table 'edutrack.courses' doesn't exist
+ERROR:root:Database query error: 1054 (42S22): Unknown column 'course_code' in 'field list'
